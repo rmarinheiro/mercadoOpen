@@ -1,6 +1,5 @@
 package br.com.mercadoOpen.mercadoOpen.Service
 
-import br.com.mercadoOpen.mercadoOpen.Controller.Request.PostCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
 import org.springframework.stereotype.Service
@@ -20,16 +19,18 @@ class CustomerService {
 
     }
 
-    fun create(customer: PostCustomerRequest){
+    fun create(customer: CustomerModel){
         val id = if(customers.isEmpty()){
             1
         }else{
-            customers.last().id.toInt() +1
+            customers.last().id!!.toInt() +1
         }.toString()
 
+        customer.id = id
 
 
-        customers.add(CustomerModel(id,customer.name,customer.email))
+
+        customers.add(customer)
         println(customers)
     }
 
@@ -38,8 +39,8 @@ class CustomerService {
 
     }
 
-    fun update(id: String, customer: PutCustomerRequest) {
-        customers.filter { it.id == id }.first().let {
+    fun update(customer: CustomerModel) {
+        customers.filter { it.id == customer.id }.first().let {
             it.name = customer.name
             it.email = customer.email
         }
