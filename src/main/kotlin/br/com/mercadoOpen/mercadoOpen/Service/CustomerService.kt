@@ -24,7 +24,7 @@ class CustomerService {
             1
         }else{
             customers.last().id!!.toInt() +1
-        }.toString()
+        }.toInt()
 
         customer.id = id
 
@@ -34,7 +34,7 @@ class CustomerService {
         println(customers)
     }
 
-    fun getCustomer(id: String): CustomerModel {
+    fun getCustomer(id: Int): CustomerModel {
         return customers.filter { it.id == id }.first()
 
     }
@@ -47,7 +47,7 @@ class CustomerService {
 
     }
 
-    fun delete(@PathVariable id: String) {
+    fun delete(@PathVariable id: Int) {
         customers.removeIf {it.id == id }
 
     }

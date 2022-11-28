@@ -8,7 +8,7 @@ fun PostCustomerRequest.toCustomer():CustomerModel{
         return CustomerModel(name =this.name,email=this.email)
 }
 
-fun PutCustomerRequest.toCustomer(id:String):CustomerModel{
+fun PutCustomerRequest.toCustomer(id:Int):CustomerModel{
 
         return CustomerModel(id = id ,name =this.name,email=this.email)
 }
