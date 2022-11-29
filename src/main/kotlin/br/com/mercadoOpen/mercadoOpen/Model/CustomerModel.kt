@@ -15,4 +15,5 @@ data class CustomerModel(
 
     @Column
     var email: String
+
 )
