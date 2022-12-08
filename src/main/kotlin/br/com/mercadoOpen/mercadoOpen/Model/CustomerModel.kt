@@ -4,7 +4,7 @@ import javax.persistence.*
 
 
 @Entity
-@Table(name = "customer")
+@Table(name = "Customer")
 data class CustomerModel(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
