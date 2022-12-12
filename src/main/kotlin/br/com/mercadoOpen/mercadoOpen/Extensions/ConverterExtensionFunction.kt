@@ -2,6 +2,7 @@ package br.com.mercadoOpen.mercadoOpen.Extensions
 
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PostBookRequest
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PostCustomerRequest
+import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutBookRequest
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Model.BookModel
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
@@ -22,6 +23,16 @@ fun PostBookRequest.toBookModel(customer:CustomerModel):BookModel{
                 price = this.price,
                 status =  BookEnum.ATIVO,
                 customer =  customer
+        )
+}
+
+fun PutBookRequest.toBookModel(previousValue:BookModel):BookModel{
+        return BookModel(
+                id =previousValue.id,
+                nome = this.nome?:previousValue.nome,
+                price = this.price?:previousValue.price,
+                status = previousValue.status,
+                customer =  previousValue.customer
         )
 }
 
