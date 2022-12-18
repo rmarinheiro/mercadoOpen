@@ -2,13 +2,15 @@ package br.com.mercadoOpen.mercadoOpen.Service
 
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
 import br.com.mercadoOpen.mercadoOpen.Repository.CustomerRepository
+import br.com.mercadoOpen.mercadoOpen.enuns.CustomerStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
 
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository
+    val customerRepository: CustomerRepository,
+    val bookService : BookService
 ) {
 
     val customers = mutableListOf<CustomerModel>()
@@ -38,10 +40,11 @@ class CustomerService(
     }
 
     fun delete(@PathVariable id: Int) {
-        if (!customerRepository.existsById(id)) {
-            throw Exception("Customer não encontrado")
-        }
-        customerRepository.deleteById(id)
+        val customer = getById(id)
+        bookService.deleteByCustomer(customer)
+        customer.status =  CustomerStatus.INATIVO
+        customerRepository.save(customer)
+        //customerRepository.delete(customer)
     }
 
 }
