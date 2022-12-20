@@ -3,7 +3,9 @@ package br.com.mercadoOpen.mercadoOpen.Controller
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PostCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Extensions.toCustomer
+import br.com.mercadoOpen.mercadoOpen.Extensions.toResponse
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
+import br.com.mercadoOpen.mercadoOpen.Response.CustomerResponse
 import br.com.mercadoOpen.mercadoOpen.Service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -17,13 +19,13 @@ class CustomerController(
 
 
     @GetMapping
-    fun getAll(@RequestParam name:String?): List<CustomerModel> {
-            return customerService.getAll(name)
+    fun getAll(@RequestParam name:String?): List<CustomerResponse> {
+            return customerService.getAll(name).map { it.toResponse() }
     }
 
     @GetMapping("/{id}")
-    fun getCustomer(@PathVariable id: Int): CustomerModel {
-            return customerService.getById(id)
+    fun getCustomer(@PathVariable id: Int): CustomerResponse {
+            return customerService.getById(id).toResponse()
 
     }
 

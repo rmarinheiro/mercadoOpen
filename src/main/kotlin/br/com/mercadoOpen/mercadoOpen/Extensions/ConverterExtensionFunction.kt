@@ -6,6 +6,8 @@ import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutBookRequest
 import br.com.mercadoOpen.mercadoOpen.Controller.Request.PutCustomerRequest
 import br.com.mercadoOpen.mercadoOpen.Model.BookModel
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
+import br.com.mercadoOpen.mercadoOpen.Response.BookResponse
+import br.com.mercadoOpen.mercadoOpen.Response.CustomerResponse
 import br.com.mercadoOpen.mercadoOpen.enuns.BookEnum
 import br.com.mercadoOpen.mercadoOpen.enuns.CustomerStatus
 import ch.qos.logback.core.net.SyslogOutputStream
@@ -34,6 +36,25 @@ fun PutBookRequest.toBookModel(previousValue:BookModel):BookModel{
                 price = this.price?:previousValue.price,
                 status  = previousValue.status,
                 customer =  previousValue.customer
+        )
+}
+
+fun CustomerModel.toResponse(): CustomerResponse {
+        return CustomerResponse(
+                id = this.id,
+                name = this.name,
+                email = this.email,
+                status = this.status
+        )
+}
+
+fun BookModel.toResponse(): BookResponse{
+        return  BookResponse(
+                id = this.id,
+                nome = this.nome,
+                price = this.price,
+                customer = this.customer,
+                status = this.status
         )
 }
 
