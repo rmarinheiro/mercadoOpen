@@ -4,6 +4,7 @@ import br.com.mercadoOpen.mercadoOpen.Model.BookModel
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
 import br.com.mercadoOpen.mercadoOpen.Repository.BookRepository
 import br.com.mercadoOpen.mercadoOpen.enuns.BookEnum
+import br.com.mercadoOpen.mercadoOpen.exception.NotFoundException
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
@@ -27,7 +28,7 @@ class BookService(
     }
 
     fun findById(id: Int): BookModel {
-        return bookRepository.findById(id).orElseThrow()
+        return bookRepository.findById(id).orElseThrow{NotFoundException("Book ${id} not exists","ML-0001")}
     }
 
     fun delete(id: Int) {
