@@ -3,6 +3,8 @@ package br.com.mercadoOpen.mercadoOpen.Service
 import br.com.mercadoOpen.mercadoOpen.Model.CustomerModel
 import br.com.mercadoOpen.mercadoOpen.Repository.CustomerRepository
 import br.com.mercadoOpen.mercadoOpen.enuns.CustomerStatus
+import br.com.mercadoOpen.mercadoOpen.enuns.Errors
+import br.com.mercadoOpen.mercadoOpen.exception.NotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
 
@@ -28,7 +30,7 @@ class CustomerService(
     }
 
     fun getById(id: Int): CustomerModel {
-        return customerRepository.findById(id).get()
+        return customerRepository.findById(id).orElseThrow{NotFoundException(Errors.ML201.message.format(id),Errors.ML101.code)}
 
     }
 

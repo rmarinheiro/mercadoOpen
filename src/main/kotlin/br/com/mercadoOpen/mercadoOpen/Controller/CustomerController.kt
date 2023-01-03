@@ -9,6 +9,7 @@ import br.com.mercadoOpen.mercadoOpen.Response.CustomerResponse
 import br.com.mercadoOpen.mercadoOpen.Service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("customer")
@@ -46,7 +47,7 @@ class CustomerController(
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    fun create(@RequestBody customer:PostCustomerRequest) {
+    fun create(@RequestBody @Valid customer:PostCustomerRequest) {
         customerService.create(customer.toCustomer())
     }
 
