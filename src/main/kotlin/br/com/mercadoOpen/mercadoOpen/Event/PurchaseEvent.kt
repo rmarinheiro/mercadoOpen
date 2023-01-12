@@ -5,5 +5,5 @@ import org.springframework.context.ApplicationEvent
 
 class PurchaseEvent (
      sources:Any,
-    val purchase:PurchaseModel
+    val purchaseModel:PurchaseModel
 ) : ApplicationEvent(sources)
