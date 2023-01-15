@@ -4,6 +4,8 @@ import br.com.mercadoOpen.mercadoOpen.Event.PurchaseEvent
 import br.com.mercadoOpen.mercadoOpen.Model.PurchaseModel
 import br.com.mercadoOpen.mercadoOpen.Repository.PurchaseRepository
 import br.com.mercadoOpen.mercadoOpen.enuns.BookEnum
+import br.com.mercadoOpen.mercadoOpen.enuns.Errors
+import br.com.mercadoOpen.mercadoOpen.exception.NotFoundException
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.stereotype.Service
 
@@ -19,7 +21,7 @@ class PurchaseService(
             books.id?.let {
                  val book = bookService.findById(it)
                 if(book.status == BookEnum.VENDIDO){
-                    throw Exception("Livro ja vendido")
+                    throw NotFoundException(Errors.ML301.message.format(book.id),Errors.ML001.code)
                 }
             }
         }
